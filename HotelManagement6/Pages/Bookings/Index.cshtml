@@ -1,0 +1,40 @@
+﻿@page
+@model HotelManagement6.Pages.Bookings.IndexModel
+@using System.Linq
+@{
+    <h3><p>Select the days you would like to stay</p></h3>
+    <form method="post">
+        <label for="checkin_date">Check-in Date:</label>
+        <input type="date" asp-for="CheckInDate" id="checkin_date" />
+
+        <label for="checkout_date">Check-out Date:</label>
+        <input type="date" asp-for="CheckOutDate" id="checkout_date" />
+
+        <button type="submit">Search Available Rooms</button>
+    </form>
+
+    @if (Model.AvailableRooms != null && Model.AvailableRooms.Any())
+{
+    <h4>Available Rooms:</h4>
+    <table style="border-collapse: collapse; width: 100%; border: 1px solid #ccc;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ccc; padding: 8px;">Room Number</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Price</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model.AvailableRooms)
+            {
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">@room.RoomNumber</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">@room.Price</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><a href="/reserve/@room.RoomNumber">Reserve</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+}
