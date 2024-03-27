@@ -6,14 +6,7 @@
     ViewData["Title"] = "Index";
 
 }
-
-
-
-@if (User.Identity.IsAuthenticated)
-                            {
-if (User.IsInRole("Admin"))
-{
-    
+  
 
 <h1>Index</h1>
 
@@ -55,7 +48,7 @@ if (User.IsInRole("Admin"))
                 @Html.DisplayFor(modelItem => item.RoomNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoomType.RoomTypeId)
+                @Html.DisplayFor(modelItem => item.RoomType.RoomTypeId) 
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
@@ -66,5 +59,3 @@ if (User.IsInRole("Admin"))
 }
     </tbody>
 </table>
-}
-}

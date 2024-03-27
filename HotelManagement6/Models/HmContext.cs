@@ -7,6 +7,8 @@ namespace HotelManagement6.Models
 {
     public partial class HmContext : DbContext
     {
+        internal object Users;
+
         public HmContext()
         {
         }

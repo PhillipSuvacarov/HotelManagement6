@@ -29,6 +29,7 @@ namespace HotelManagement6.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
 
+
         public virtual ICollection<Aspnetuserclaim> Aspnetuserclaims { get; set; }
         public virtual ICollection<Aspnetuserlogin> Aspnetuserlogins { get; set; }
         public virtual ICollection<Aspnetusertoken> Aspnetusertokens { get; set; }

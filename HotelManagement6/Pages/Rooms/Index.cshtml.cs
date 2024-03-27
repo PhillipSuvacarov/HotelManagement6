@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HotelManagement6.Pages.Rooms
 {
-    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly HotelManagement6.Models.HmContext _context;

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Areas.Identity.Data;
 using HotelManagement6.Models;
+using HotelManagement6.Areas.Identity.Pages.Account.Manage;
+using Microsoft.AspNetCore.Components.Forms;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.");
 
@@ -14,8 +16,14 @@ builder.Services.AddDefaultIdentity<MySqlIdentityUser>(options => options.SignIn
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityContext>();
 
+// Add Policies
+builder.Services.AddAuthorization(options => {
+   //options.AddPolicy("AdminRequired", policy => policy.RequireRole("Admin"));
+});
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options => {
+    //options.Conventions.AuthorizeFolder("/Rooms", "AdminRequired");
+});
 
 var app = builder.Build();
 
@@ -51,21 +59,36 @@ using(var scope = app.Services.CreateScope())
 }
 using (var scope = app.Services.CreateScope())
 {
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MySqlIdentityUser>>();
-    string email = "admin@admin.com";
-    string password = "Test1234,";
-    
-   if(await userManager.FindByEmailAsync(email) == null)
-    {
-        var user = new MySqlIdentityUser();
-        user.UserName = email;
-        user.Email = email;
 
-        await userManager.CreateAsync(user, password);
-        // Right now default is everyone who makes an account is Guest change to Admin for special permissions
-        await userManager.AddToRoleAsync(user, "Admin");
+    //Why does Admin role only work like this 
+    //var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MySqlIdentityUser>>();
+    //string email = "";
+    //string password = "";
+
+    //if (await userManager.FindByEmailAsync(email) == null)
+    //{
+    //    var user = new MySqlIdentityUser();
+    //    user.UserName = email;
+    //    user.Email = email;
+
+    //    await userManager.CreateAsync(user, password);
+    //    // Right now default is everyone who makes an account is Guest change to Admin for special permissions
+    //    await userManager.AddToRoleAsync(user, "Admin");
 
     }
-}
+    // Trying to figure out why Guest Role only works like this
+    //    string guestEmail = "guest@example.com";
+    //    string guestPassword = "Test1234,";
+    //    if (await userManager.FindByEmailAsync(guestEmail) == null)
+    //    {
+    //        var guestUser = new MySqlIdentityUser();
+    //        guestUser.UserName = guestEmail;
+    //        guestUser.Email = guestEmail;
 
-app.Run();
+    //        await userManager.CreateAsync(guestUser, guestPassword);
+    //        await userManager.AddToRoleAsync(guestUser, "Guest");
+    //    }
+    //}
+
+    app.Run();
+

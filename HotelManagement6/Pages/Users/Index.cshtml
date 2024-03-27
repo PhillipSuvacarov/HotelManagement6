@@ -1,6 +1,8 @@
 ﻿@page
+@using HotelManagement6.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
 @model HotelManagement6.Pages.Users.IndexModel
-
+@inject UserManager<MySqlIdentityUser> UserManager
 @{
     ViewData["Title"] = "Index";
 }
@@ -22,11 +24,14 @@
                 @Html.DisplayNameFor(model => model.Aspnetuser[0].EmailConfirmed)
             </th>
             
+            <th>Roles</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Aspnetuser) {
+            var user = await UserManager.FindByIdAsync(item.Id);
+            var roles = await UserManager.GetRolesAsync(user);
         <tr>
             
             <td>
@@ -36,12 +41,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
             </td>
-            
             <td>
+                     @string.Join(", ", roles) 
+                   
+
+            </td>
+            
+             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            </td> 
         </tr>
 }
     </tbody>
