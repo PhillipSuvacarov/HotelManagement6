@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Rooms
+namespace HotelManagement6.Pages.Reservations
 {
-
     public class IndexModel : PageModel
     {
         private readonly HotelManagement6.Models.HmContext _context;
@@ -19,14 +18,13 @@ namespace HotelManagement6.Pages.Rooms
             _context = context;
         }
 
-        public IList<Room> Room { get;set; } = default!;
+        public IList<Reservation> Reservation { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Rooms != null)
+            if (_context.Reservations != null)
             {
-                Room = await _context.Rooms
-                .Include(r => r.RoomType).ToListAsync();
+                Reservation = await _context.Reservations.ToListAsync();
             }
         }
     }

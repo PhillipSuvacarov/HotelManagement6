@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Rooms
+namespace HotelManagement6.Pages.Reservations
 {
     public class CreateModel : PageModel
     {
@@ -20,30 +20,22 @@ namespace HotelManagement6.Pages.Rooms
 
         public IActionResult OnGet()
         {
-        ViewData["RoomTypeId"] = new SelectList(_context.Roomtypes, "RoomTypeId", "RoomTypeId");
             return Page();
         }
 
         [BindProperty]
-        public Room Room { get; set; } = default!;
+        public Reservation Reservation { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-
-       
         public async Task<IActionResult> OnPostAsync()
         {
-            ModelState.Clear();
-            Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault()
-; TryValidateModel(Room);
-            ;
-            var check = ModelState.IsValid;
-            if (!ModelState.IsValid || _context.Rooms == null || Room == null)
+          if (!ModelState.IsValid || _context.Reservations == null || Reservation == null)
             {
                 return Page();
             }
 
-            _context.Rooms.Add(Room);
+            _context.Reservations.Add(Reservation);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

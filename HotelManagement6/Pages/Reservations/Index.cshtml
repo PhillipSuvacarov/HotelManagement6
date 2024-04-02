@@ -1,5 +1,5 @@
 ﻿@page
-@model HotelManagement6.Pages.Rooms.IndexModel
+@model HotelManagement6.Pages.Reservations.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,34 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Room[0].Capacity)
+                @Html.DisplayNameFor(model => model.Reservation[0].CheckIn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room[0].Price)
+                @Html.DisplayNameFor(model => model.Reservation[0].CheckOut)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room[0].RoomNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Room[0].RoomType)
+                @Html.DisplayNameFor(model => model.Reservation[0].Price)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Room) {
+@foreach (var item in Model.Reservation) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
+                @Html.DisplayFor(modelItem => item.CheckIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckOut)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomType.RoomTypeId)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

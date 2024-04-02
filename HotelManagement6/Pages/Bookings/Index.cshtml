@@ -2,13 +2,18 @@
 @model HotelManagement6.Pages.Bookings.IndexModel
 @using System.Linq
 @{
+    var today = DateTime.Today.ToString("yyyy-MM-dd");
+    var nextDay = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
+
+    }
     <h3><p>Select the days you would like to stay</p></h3>
     <form method="post">
+
         <label for="checkin_date">Check-in Date:</label>
-        <input type="date" asp-for="CheckInDate" id="checkin_date" />
+        <input type="date" asp-for="CheckInDate" id="checkin_date" min="@today"/>
 
         <label for="checkout_date">Check-out Date:</label>
-        <input type="date" asp-for="CheckOutDate" id="checkout_date" />
+    <input type="date" asp-for="CheckOutDate" id="checkout_date" min="@nextDay" />
 
         <button type="submit">Search Available Rooms</button>
     </form>
@@ -30,11 +35,16 @@
                 <tr>
                     <td style="border: 1px solid #ccc; padding: 8px;">@room.RoomNumber</td>
                     <td style="border: 1px solid #ccc; padding: 8px;">@room.Price</td>
-                    <td style="border: 1px solid #ccc; padding: 8px;"><a href="/reserve/@room.RoomNumber">Reserve</a></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">
+                            
+                            <a class="nav-link text-dark" asp-area="" asp-page="/guest_info/Create"
+                               asp-route-roomNumber="@room.RoomNumber"
+                               asp-route-checkinDate="@Model.CheckInDate"
+                               asp-route-checkoutDate="@Model.CheckOutDate">Bookings</a>
+                        </td>
                 </tr>
             }
         </tbody>
     </table>
 }
 
-}

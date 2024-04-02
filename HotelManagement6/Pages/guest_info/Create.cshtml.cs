@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Rooms
+namespace HotelManagement6.Pages.guest_info
 {
+    
+
     public class CreateModel : PageModel
     {
         private readonly HotelManagement6.Models.HmContext _context;
@@ -20,30 +22,23 @@ namespace HotelManagement6.Pages.Rooms
 
         public IActionResult OnGet()
         {
-        ViewData["RoomTypeId"] = new SelectList(_context.Roomtypes, "RoomTypeId", "RoomTypeId");
             return Page();
         }
+        
 
-        [BindProperty]
-        public Room Room { get; set; } = default!;
+                [BindProperty]
+        public Guest Guest { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-
-       
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync([FromForm] int roomNumber, DateTime checkinDate, DateTime checkoutDate)
         {
-            ModelState.Clear();
-            Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault()
-; TryValidateModel(Room);
-            ;
-            var check = ModelState.IsValid;
-            if (!ModelState.IsValid || _context.Rooms == null || Room == null)
+          if (!ModelState.IsValid || _context.Guests == null || Guest == null)
             {
                 return Page();
             }
 
-            _context.Rooms.Add(Room);
+            _context.Guests.Add(Guest);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

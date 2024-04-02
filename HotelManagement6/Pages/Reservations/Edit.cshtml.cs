@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Rooms
+namespace HotelManagement6.Pages.Reservations
 {
     public class EditModel : PageModel
     {
@@ -20,25 +20,21 @@ namespace HotelManagement6.Pages.Rooms
         }
 
         [BindProperty]
-        public Room Room { get; set; } = default!;
+        public Reservation Reservation { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            ModelState.Clear();
-            Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault()
-; TryValidateModel(Room);
-            if (id == null || _context.Rooms == null)
+            if (id == null || _context.Reservations == null)
             {
                 return NotFound();
             }
 
-            var room =  await _context.Rooms.FirstOrDefaultAsync(m => m.Id == id);
-            if (room == null)
+            var reservation =  await _context.Reservations.FirstOrDefaultAsync(m => m.Id == id);
+            if (reservation == null)
             {
                 return NotFound();
             }
-            Room = room;
-           ViewData["RoomTypeId"] = new SelectList(_context.Roomtypes, "RoomTypeId", "RoomTypeId");
+            Reservation = reservation;
             return Page();
         }
 
@@ -51,7 +47,7 @@ namespace HotelManagement6.Pages.Rooms
                 return Page();
             }
 
-            _context.Attach(Room).State = EntityState.Modified;
+            _context.Attach(Reservation).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +55,7 @@ namespace HotelManagement6.Pages.Rooms
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoomExists(Room.Id))
+                if (!ReservationExists(Reservation.Id))
                 {
                     return NotFound();
                 }
@@ -72,9 +68,9 @@ namespace HotelManagement6.Pages.Rooms
             return RedirectToPage("./Index");
         }
 
-        private bool RoomExists(int id)
+        private bool ReservationExists(int id)
         {
-          return (_context.Rooms?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Reservations?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

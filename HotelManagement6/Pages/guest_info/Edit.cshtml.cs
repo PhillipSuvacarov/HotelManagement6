@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Rooms
+namespace HotelManagement6.Pages.guest_info
 {
     public class EditModel : PageModel
     {
@@ -20,25 +20,21 @@ namespace HotelManagement6.Pages.Rooms
         }
 
         [BindProperty]
-        public Room Room { get; set; } = default!;
+        public Guest Guest { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            ModelState.Clear();
-            Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault()
-; TryValidateModel(Room);
-            if (id == null || _context.Rooms == null)
+            if (id == null || _context.Guests == null)
             {
                 return NotFound();
             }
 
-            var room =  await _context.Rooms.FirstOrDefaultAsync(m => m.Id == id);
-            if (room == null)
+            var guest =  await _context.Guests.FirstOrDefaultAsync(m => m.Id == id);
+            if (guest == null)
             {
                 return NotFound();
             }
-            Room = room;
-           ViewData["RoomTypeId"] = new SelectList(_context.Roomtypes, "RoomTypeId", "RoomTypeId");
+            Guest = guest;
             return Page();
         }
 
@@ -51,7 +47,7 @@ namespace HotelManagement6.Pages.Rooms
                 return Page();
             }
 
-            _context.Attach(Room).State = EntityState.Modified;
+            _context.Attach(Guest).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +55,7 @@ namespace HotelManagement6.Pages.Rooms
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoomExists(Room.Id))
+                if (!GuestExists(Guest.Id))
                 {
                     return NotFound();
                 }
@@ -72,9 +68,9 @@ namespace HotelManagement6.Pages.Rooms
             return RedirectToPage("./Index");
         }
 
-        private bool RoomExists(int id)
+        private bool GuestExists(int id)
         {
-          return (_context.Rooms?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Guests?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
