@@ -10,6 +10,11 @@
 @{
     ViewData["Title"] = "Welcome | Luxe De Palace";
 }
+@{
+    var today = DateTime.Today.ToString("yyyy-MM-dd");
+    var nextDay = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
+
+}
 
 
 <div class="left-center">
@@ -18,8 +23,41 @@
     <hr style="border-top: 1 px solid black; width: 425px">
     <p style = "text-align: left; padding-left: 45px; height: 30px">123 Oceanfront Avenue, Maui, Hawaii 77777</p>
     <h1 class="display-3" style = "font-size: 25px; padding-left: 40px; color: white; background-color: black; width: 425px">CHECK RATES & AVAILABILITY</h1>
-    <p style= "padding-left: 115px; height: 100px; width: 425px; background-color: rgb(228, 227, 227)">CHECK IN - CHECK OUT</p>
-    <p style= "padding-left: 165px; height: 100px; width: 425px; background-color: rgb(228, 227, 227)">GUEST(s)</p>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 150px; width: 425px; background-color: rgb(228, 227, 227)">
+        <form method="post" style="display: flex; flex-direction: column; align-items: center;">
+            <label for="checkin_date">CHECK IN - CHECK OUT</label>
+            <div style="display: flex; justify-content: center;">
+                <input type="date" id="checkin_date" min="@today" />
+                <input type="date" id="checkout_date" min="@nextDay" />
+            </div>
+            <label for="guests">Number of Guests</label>
+            <div style="display: flex; justify-content: center;">
+                <input type="number" id="guests" value="1" min="1" max="6" style="width: 50px; text-align: center;" />
+                <button type="button" onclick="incrementGuests()">+</button>
+                <button type="button" onclick="decrementGuests()">-</button>
+            </div>
+            <button type="submit">Search Available Rooms</button>
+        </form>
+    </div>
+
+    <script>
+        function incrementGuests() {
+            var guestsInput = document.getElementById('guests');
+            if (parseInt(guestsInput.value) < 6) {
+                guestsInput.value = parseInt(guestsInput.value) + 1;
+            }
+        }
+
+        function decrementGuests() {
+            var guestsInput = document.getElementById('guests');
+            if (parseInt(guestsInput.value) > 1) {
+                guestsInput.value = parseInt(guestsInput.value) - 1;
+            }
+        }
+    </script>
+
+
+
 
 </div>
 @if(User.IsInRole("Admin"))
