@@ -17,7 +17,7 @@
 
         <button type="submit">Search Available Rooms</button>
     </form>
-
+    
     @if (Model.AvailableRooms != null && Model.AvailableRooms.Any())
 {
     <h4>Available Rooms:</h4>
@@ -40,7 +40,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/guest_info/Create"
                                asp-route-roomNumber="@room.RoomNumber"
                                asp-route-checkinDate="@Model.CheckInDate"
-                               asp-route-checkoutDate="@Model.CheckOutDate">Bookings</a>
+                               asp-route-checkoutDate="@Model.CheckOutDate"
+                               asp-route-price="@room.Price">Bookings</a>
                         </td>
                 </tr>
             }

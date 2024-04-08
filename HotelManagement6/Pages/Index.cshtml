@@ -8,17 +8,62 @@
 
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Welcome | Luxe De Palace";
+}
+@{
+    var today = DateTime.Today.ToString("yyyy-MM-dd");
+    var nextDay = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Hotel Management</h1>
-    <p>The purpose of this project is for Phillip and Ysani to pass database class and learn asp.net</p>
+
+<div class="left-center">
+    <h1 class="display-1" style = "font-size: 20px; padding-left: 145px" >Luxe de Palace </h1>
+    <h1 class="display-2" style = "font-size: 35px; padding-left: 85px">YSANI & PHILLIP </h1>
+    <hr style="border-top: 1 px solid black; width: 425px">
+    <p style = "text-align: left; padding-left: 45px; height: 30px">123 Oceanfront Avenue, Maui, Hawaii 77777</p>
+    <h1 class="display-3" style = "font-size: 25px; padding-left: 40px; color: white; background-color: black; width: 425px">CHECK RATES & AVAILABILITY</h1>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 150px; width: 425px; background-color: rgb(228, 227, 227)">
+        <form method="post" style="display: flex; flex-direction: column; align-items: center;">
+            <label for="checkin_date">CHECK IN - CHECK OUT</label>
+            <div style="display: flex; justify-content: center;">
+                <input type="date" id="checkin_date" min="@today" />
+                <input type="date" id="checkout_date" min="@nextDay" />
+            </div>
+            <label for="guests">Number of Guests</label>
+            <div style="display: flex; justify-content: center;">
+                <input type="number" id="guests" value="1" min="1" max="6" style="width: 50px; text-align: center;" />
+                <button type="button" onclick="incrementGuests()">+</button>
+                <button type="button" onclick="decrementGuests()">-</button>
+            </div>
+            <button type="submit">Search Available Rooms</button>
+        </form>
+    </div>
+
+    <script>
+        function incrementGuests() {
+            var guestsInput = document.getElementById('guests');
+            if (parseInt(guestsInput.value) < 6) {
+                guestsInput.value = parseInt(guestsInput.value) + 1;
+            }
+        }
+
+        function decrementGuests() {
+            var guestsInput = document.getElementById('guests');
+            if (parseInt(guestsInput.value) > 1) {
+                guestsInput.value = parseInt(guestsInput.value) - 1;
+            }
+        }
+    </script>
+
+
+
+
 </div>
 @if(User.IsInRole("Admin"))
 
 {
-    <h1>hi Admin let me test this out </h1>
+    <h1 style="text-align: right">hi Admin let me test this out </h1>
 }else
 {
     <h1>non admin</h1>

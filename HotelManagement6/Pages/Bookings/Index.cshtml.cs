@@ -29,7 +29,9 @@ namespace HotelManagement6.Pages.Bookings
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CheckOutDate { get; set; }
 
-       
+        public int roomNumber {  get; set; }
+
+        public decimal Price {  get; set; }
 
         public IEnumerable<Room> AvailableRooms { get; set; }
         public IActionResult OnPost()
@@ -38,29 +40,29 @@ namespace HotelManagement6.Pages.Bookings
             {
                 return Page();
             }
-            AvailableRooms = GetAvailableRooms(CheckInDate, CheckOutDate);
+            AvailableRooms = GetAvailableRooms(roomNumber, CheckInDate, CheckOutDate, Price);
 
             // Pass the available rooms to the view or perform other operations
             return Page();
         }
-        private IEnumerable<Room> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate)
+        private IEnumerable<Room> GetAvailableRooms(int roomNumber, DateTime checkInDate, DateTime checkOutDate, decimal Price)
         {
             var allRoomsAndPrices = _context.Rooms
                 .ToList();
 
 
             return allRoomsAndPrices;
-            // When I connect table properly then use 
-            //      var bookedRoomIds = context.Bookings
-            // .Where(b => b.CheckInDate < checkOutDate && b.CheckOutDate > checkInDate)
-            //.Select(b => b.RoomId)
-            // .ToList();
+           //  When I connect table properly then use 
+           //       var bookedRoomIds = context.Bookings
+           // .Where(b => b.CheckInDate < checkOutDate && b.CheckOutDate > checkInDate)
+           //.Select(b => b.RoomId)
+           // .ToList();
 
-            //      var availableRooms = allRoomsAndPrices
-            //          .Where(r => !bookedRoomIds.Contains(r.RoomId))
-            //         .ToList();
+           //       var availableRooms = allRoomsAndPrices
+           //           .Where(r => !bookedRoomIds.Contains(r.RoomId))
+           //          .ToList();
 
-            //     return availableRooms;
+           //      return availableRooms;
 
         }
     }

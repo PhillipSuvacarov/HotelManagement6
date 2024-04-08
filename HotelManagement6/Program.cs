@@ -61,19 +61,19 @@ using (var scope = app.Services.CreateScope())
 {
 
     //Why does Admin role only work like this 
-    //var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MySqlIdentityUser>>();
-    //string email = "";
-    //string password = "";
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MySqlIdentityUser>>();
+    string email = "Admin@aol.com";
+    string password = "Hello123,";
 
-    //if (await userManager.FindByEmailAsync(email) == null)
-    //{
-    //    var user = new MySqlIdentityUser();
-    //    user.UserName = email;
-    //    user.Email = email;
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new MySqlIdentityUser();
+        user.UserName = email;
+        user.Email = email;
 
-    //    await userManager.CreateAsync(user, password);
-    //    // Right now default is everyone who makes an account is Guest change to Admin for special permissions
-    //    await userManager.AddToRoleAsync(user, "Admin");
+        await userManager.CreateAsync(user, password);
+        // Right now default is everyone who makes an account is Guest change to Admin for special permissions
+        await userManager.AddToRoleAsync(user, "Admin");
 
     }
     // Trying to figure out why Guest Role only works like this
@@ -92,3 +92,4 @@ using (var scope = app.Services.CreateScope())
 
     app.Run();
 
+}

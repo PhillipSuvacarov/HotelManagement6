@@ -1,8 +1,20 @@
 ﻿@page
+@using HotelManagement6.Models
 @model HotelManagement6.Pages.guest_info.IndexModel
 
+
 @{
+    //fix it so the data gets the correct room number
+    // fix it so the data is not temparay and kept
+    //store to the database so I have everything I need
     ViewData["Title"] = "Index";
+    var roomNumber = TempData["RoomNumber"];
+    var checkinDate = TempData["CheckinDate"];
+    var checkoutDate = TempData["CheckoutDate"];
+    var price = TempData["price"];
+    
+     
+   
 }
 
 <h1>Index</h1>
@@ -31,8 +43,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Guest[0].DateOfBirth)
             </th>
-           
-            <th></th>
+            <th>
+                RoomNumber
+            </th>      
         </tr>
     </thead>
     <tbody>
@@ -56,8 +69,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
+
             <td>
-                  @Html.DisplayFor(modelItem => item.Guestreservationascs)
+                    @if (item.Guestreservationascs.Any())
+                    {
+                        var reservation = item.Guestreservationascs.First().Reservation;
+                        if (reservation?.Rooms.Any() == true)
+                        {
+                            @reservation.Rooms.First().RoomNumber
+                        }
+                    }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

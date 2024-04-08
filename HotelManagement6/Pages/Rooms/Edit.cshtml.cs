@@ -24,9 +24,7 @@ namespace HotelManagement6.Pages.Rooms
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            ModelState.Clear();
-            Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault()
-; TryValidateModel(Room);
+//            
             if (id == null || _context.Rooms == null)
             {
                 return NotFound();
@@ -46,6 +44,9 @@ namespace HotelManagement6.Pages.Rooms
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ModelState.Clear();
+                        Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault()
+            ; TryValidateModel(Room);
             if (!ModelState.IsValid)
             {
                 return Page();
