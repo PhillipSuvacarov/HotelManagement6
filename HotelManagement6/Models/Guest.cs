@@ -18,6 +18,7 @@ namespace HotelManagement6.Models
         public string? Email { get; set; }
         public DateOnly? DateOfBirth { get; set; }
 
+        
         public virtual ICollection<Guestreservationasc> Guestreservationascs { get; set; }
     }
 }

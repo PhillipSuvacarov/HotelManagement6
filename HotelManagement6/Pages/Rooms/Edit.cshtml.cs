@@ -24,6 +24,7 @@ namespace HotelManagement6.Pages.Rooms
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null || _context.Rooms == null)
             {
                 return NotFound();
@@ -44,10 +45,12 @@ namespace HotelManagement6.Pages.Rooms
         public async Task<IActionResult> OnPostAsync()
         {
             ModelState.Clear();
+
             Room.RoomType = _context.Roomtypes.Where(x => x.RoomTypeId == Room.RoomTypeId).FirstOrDefault();
             TryValidateModel(Room);
             ;
             var check = ModelState.IsValid;
+
             if (!ModelState.IsValid)
             {
                 return Page();

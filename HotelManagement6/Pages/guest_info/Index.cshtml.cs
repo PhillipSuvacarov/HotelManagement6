@@ -9,6 +9,7 @@ using HotelManagement6.Models;
 
 namespace HotelManagement6.Pages.guest_info
 {
+    
     public class IndexModel : PageModel
     {
         private readonly HotelManagement6.Models.HmContext _context;
@@ -19,13 +20,26 @@ namespace HotelManagement6.Pages.guest_info
         }
 
         public IList<Guest> Guest { get;set; } = default!;
-
+        public IList<Reservation> Reservations { get; set; } = default!;
+        public IList<Guestreservationasc> GuestReservations { get; set; } = default!;
         public async Task OnGetAsync()
         {
             if (_context.Guests != null)
             {
-                Guest = await _context.Guests.ToListAsync();
+               
+
+                Guest = await _context.Guests
+                .Include(g => g.Guestreservationascs)
+                .ThenInclude(gra => gra.Reservation)
+                    .ThenInclude(r => r.Rooms)
+            .ToListAsync();
+
+
+
             }
-        }
+            
+        }  
+
+             
     }
 }
