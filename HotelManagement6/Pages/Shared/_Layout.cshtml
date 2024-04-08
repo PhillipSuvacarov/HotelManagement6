@@ -3,33 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HotelManagement6</title>
+    <title>@ViewData["Title"] By Ysani & Phillip</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HotelManagement6.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color: black !important;">
+            
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">HotelManagement6</a>
+                
+                <!-- Title -->
+                <a class="navbar-brand" asp-area="" asp-action="Index"><img src="~/images/newhotel.png"
+                    height="90px" width="115px"/><span style="margin-left: 10px; color: white;">LDP | Ysani & Phillip</span></a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index">Bookings</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Bookings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/guest_info/Index">Guests</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/guest_info/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Guests</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Reservations/Index">Reservations</a>
@@ -40,7 +46,7 @@
                             {
                                 if (User.IsInRole("Admin"))
                                 {
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Rooms/Index">Rooms</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Rooms/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Rooms</a>
                                     
                                 }
                             }
@@ -51,7 +57,7 @@
                             {
                                 if (User.IsInRole("Admin"))
                                 {
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Users</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';"d>Users</a>
                                 }
                             }
                         </li>
@@ -69,7 +75,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - HotelManagement6 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2024 - LuxeDePalace | Ysani & Phillip - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
@@ -80,3 +86,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
