@@ -22,6 +22,11 @@ namespace HotelManagement6.Pages.guest_info
         [BindProperty]
         public Guest Guest { get; set; } = default!;
 
+        [BindProperty]
+        public Reservation Reservation { get; set; } = default!;
+
+        [BindProperty]
+        public Room Room { get; set; } = default!;
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Guests == null)
@@ -29,12 +34,21 @@ namespace HotelManagement6.Pages.guest_info
                 return NotFound();
             }
 
-            var guest =  await _context.Guests.FirstOrDefaultAsync(m => m.Id == id);
+            var guest = await _context.Guests
+       .Include(g => g.Guestreservationascs)
+           .ThenInclude(gra => gra.Reservation)
+               .ThenInclude(r => r.Rooms)
+       .FirstOrDefaultAsync(m => m.Id == id);
             if (guest == null)
             {
                 return NotFound();
             }
             Guest = guest;
+            if (guest.Guestreservationascs.Any())
+            {
+                Reservation = guest.Guestreservationascs.First().Reservation;
+                Room = Reservation.Rooms.FirstOrDefault();
+            }
             return Page();
         }
 
@@ -48,7 +62,14 @@ namespace HotelManagement6.Pages.guest_info
             }
 
             _context.Attach(Guest).State = EntityState.Modified;
-
+            if (Reservation != null)
+            {
+                _context.Attach(Reservation).State = EntityState.Modified;
+            }
+            if (Room != null)
+            {
+                _context.Attach(Room).State = EntityState.Modified;
+            }
             try
             {
                 await _context.SaveChangesAsync();

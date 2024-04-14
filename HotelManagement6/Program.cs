@@ -8,9 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.");
 
 builder.Services.AddDbContext<IdentityContext>(options =>
-    options.UseMySql(connectionString,new MySqlServerVersion(new Version(8,0, 36))));
+    options.UseMySql(connectionString,new MySqlServerVersion(new Version(11,3, 2))));
 builder.Services.AddDbContext<HmContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36))));
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(11, 3, 2))));
 
 builder.Services.AddDefaultIdentity<MySqlIdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
@@ -77,19 +77,21 @@ using (var scope = app.Services.CreateScope())
 
     }
     // Trying to figure out why Guest Role only works like this
-    //    string guestEmail = "guest@example.com";
-    //    string guestPassword = "Test1234,";
-    //    if (await userManager.FindByEmailAsync(guestEmail) == null)
-    //    {
-    //        var guestUser = new MySqlIdentityUser();
-    //        guestUser.UserName = guestEmail;
-    //        guestUser.Email = guestEmail;
+    string guestEmail = "guest@example.com";
+    string guestPassword = "Test1234,";
+    if (await userManager.FindByEmailAsync(guestEmail) == null)
+    {
+        var guestUser = new MySqlIdentityUser();
+        guestUser.UserName = guestEmail;
+        guestUser.Email = guestEmail;
 
-    //        await userManager.CreateAsync(guestUser, guestPassword);
-    //        await userManager.AddToRoleAsync(guestUser, "Guest");
-    //    }
-    //}
-
-    app.Run();
-
+        await userManager.CreateAsync(guestUser, guestPassword);
+        await userManager.AddToRoleAsync(guestUser, "Guest");
+    }
 }
+
+app.Run();
+
+
+
+

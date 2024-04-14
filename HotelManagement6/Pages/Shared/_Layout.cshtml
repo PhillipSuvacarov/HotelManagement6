@@ -28,12 +28,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index">Bookings</a>
                         </li>
+                        
                         <li class="nav-item">
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Admin")){
                             <a class="nav-link text-dark" asp-area="" asp-page="/guest_info/Index">Guests</a>
+                                }
+                            }
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Reservations/Index">Reservations</a>
-                        </li>
+  
 
                         <li class="nav-item">
                             @if (User.Identity.IsAuthenticated)
@@ -46,15 +50,7 @@
                             }
                             
                         </li>
-                        <li class="nav-item">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole("Admin"))
-                                {
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Users</a>
-                                }
-                            }
-                        </li>
+                       
                     </ul>
                     <partial name="_LoginPartial"/>
                 </div>
@@ -67,11 +63,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - HotelManagement6 - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+   
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

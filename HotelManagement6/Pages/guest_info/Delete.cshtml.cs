@@ -16,6 +16,7 @@ namespace HotelManagement6.Pages.guest_info
         public DeleteModel(HotelManagement6.Models.HmContext context)
         {
             _context = context;
+            
         }
 
         [BindProperty]
@@ -47,13 +48,28 @@ namespace HotelManagement6.Pages.guest_info
             {
                 return NotFound();
             }
-            var guest = await _context.Guests.FindAsync(id);
+            // remove from guestreservationasc
+            
+            var reservations = _context.Guestreservationascs.Where(x => x.GuestId == id);
+            
+            _context.Guestreservationascs.RemoveRange(reservations);
+            
 
+            //var roomReservations = _context.Roomreservationints.Where(x => x.R);
+            //_context.RoomReservationInts.RemoveRange(roomReservations);
+
+
+            // remove reservation from reservation table finding the id
+            var reservationsID = _context.Reservations.Where(x => x.ReservationId == id);
+            _context.Reservations.RemoveRange(reservationsID);
+            _context.SaveChanges();
+
+
+            var guest = await _context.Guests.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (guest != null)
             {
-                Guest = guest;
-                _context.Guests.Remove(Guest);
-                await _context.SaveChangesAsync();
+                _context.Guests.Remove(guest);
+                _context.SaveChanges();
             }
 
             return RedirectToPage("./Index");

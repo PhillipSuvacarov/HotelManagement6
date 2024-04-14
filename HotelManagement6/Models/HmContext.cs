@@ -36,8 +36,8 @@ namespace HotelManagement6.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=localhost;port=3307;user=root;password=Password123!@#;database=hotelmanagement", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql"));
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=Password123!@#;database=hotelmanagement", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql"));
             }
         }
 
@@ -56,6 +56,11 @@ namespace HotelManagement6.Models
                 entity.Property(e => e.Name).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedName).HasMaxLength(256);
+                modelBuilder.Entity<Reservation>()
+        .HasMany(r => r.Guestreservationascs)
+        .WithOne(gra => gra.Reservation)
+        .HasForeignKey(gra => gra.ReservationId)
+        .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Aspnetroleclaim>(entity =>
@@ -209,7 +214,7 @@ namespace HotelManagement6.Models
                 entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.Guestreservationascs)
                     .HasForeignKey(d => d.ReservationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Table_7_Reservation");
             });
 
@@ -217,7 +222,7 @@ namespace HotelManagement6.Models
             {
                 entity.ToTable("reservation");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.ReservationId).HasColumnName("ID");
 
                 entity.Property(e => e.Price).HasPrecision(8, 2);
             });
@@ -236,7 +241,7 @@ namespace HotelManagement6.Models
 
                 entity.Property(e => e.ReservationId).HasColumnName("ReservationID");
 
-                entity.Property(e => e.ReservationPaymentId).HasColumnName("ReservationPaymentID");
+                
 
                 entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.Reservationpayments)
@@ -267,8 +272,8 @@ namespace HotelManagement6.Models
                     .WithMany(p => p.Rooms)
                     .UsingEntity<Dictionary<string, object>>(
                         "Roomreservationint",
-                        l => l.HasOne<Reservation>().WithMany().HasForeignKey("ReservationId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("RoomReservationInt_Reservation"),
-                        r => r.HasOne<Room>().WithMany().HasForeignKey("RoomId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("RoomReservationInt_Room"),
+                        l => l.HasOne<Reservation>().WithMany().HasForeignKey("ReservationId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("RoomReservationInt_Reservation"),
+                        r => r.HasOne<Room>().WithMany().HasForeignKey("RoomId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("RoomReservationInt_Room"),
                         j =>
                         {
                             j.HasKey("RoomId", "ReservationId").HasName("PRIMARY").HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });

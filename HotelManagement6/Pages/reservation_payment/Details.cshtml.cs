@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Reservations
+namespace HotelManagement6.Pages.reservation_payment
 {
     public class DetailsModel : PageModel
     {
@@ -18,23 +18,23 @@ namespace HotelManagement6.Pages.Reservations
             _context = context;
         }
 
-      public Reservation Reservation { get; set; } = default!; 
+      public Reservationpayment Reservationpayment { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Reservations == null)
+            if (id == null || _context.Reservationpayments == null)
             {
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations.FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null)
+            var reservationpayment = await _context.Reservationpayments.FirstOrDefaultAsync(m => m.Id == id);
+            if (reservationpayment == null)
             {
                 return NotFound();
             }
             else 
             {
-                Reservation = reservation;
+                Reservationpayment = reservationpayment;
             }
             return Page();
         }

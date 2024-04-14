@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Reservations
+namespace HotelManagement6.Pages.reservation_payment
 {
     public class EditModel : PageModel
     {
@@ -20,21 +20,22 @@ namespace HotelManagement6.Pages.Reservations
         }
 
         [BindProperty]
-        public Reservation Reservation { get; set; } = default!;
+        public Reservationpayment Reservationpayment { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Reservations == null)
+            if (id == null || _context.Reservationpayments == null)
             {
                 return NotFound();
             }
 
-            var reservation =  await _context.Reservations.FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null)
+            var reservationpayment =  await _context.Reservationpayments.FirstOrDefaultAsync(m => m.Id == id);
+            if (reservationpayment == null)
             {
                 return NotFound();
             }
-            Reservation = reservation;
+            Reservationpayment = reservationpayment;
+           ViewData["ReservationId"] = new SelectList(_context.Reservations, "ReservationId", "ReservationId");
             return Page();
         }
 
@@ -42,12 +43,16 @@ namespace HotelManagement6.Pages.Reservations
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ModelState.Clear();
+            Reservationpayment.Reservation = _context.Reservations.Where(x => x.ReservationId == Reservationpayment.ReservationId)
+                .FirstOrDefault();
+            ; TryValidateModel(Reservationpayment);
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Reservation).State = EntityState.Modified;
+            _context.Attach(Reservationpayment).State = EntityState.Modified;
 
             try
             {
@@ -55,7 +60,7 @@ namespace HotelManagement6.Pages.Reservations
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReservationExists(Reservation.Id))
+                if (!ReservationpaymentExists(Reservationpayment.Id))
                 {
                     return NotFound();
                 }
@@ -68,9 +73,9 @@ namespace HotelManagement6.Pages.Reservations
             return RedirectToPage("./Index");
         }
 
-        private bool ReservationExists(int id)
+        private bool ReservationpaymentExists(int id)
         {
-          return (_context.Reservations?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Reservationpayments?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

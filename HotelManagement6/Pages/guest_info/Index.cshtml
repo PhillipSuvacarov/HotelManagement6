@@ -46,6 +46,15 @@
             <th>
                 RoomNumber
             </th>      
+            <th>
+                Check-in Date
+            </th>
+            <th>
+                Check-out Date
+            </th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -67,7 +76,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    @item.DateOfBirth?.ToShortDateString() 
             </td>
 
             <td>
@@ -80,6 +89,20 @@
                         }
                     }
             </td>
+                <td>
+                    @if (item.Guestreservationascs.Any())
+                    {
+                        var reservation = item.Guestreservationascs.First().Reservation;
+                        @reservation.CheckIn.ToShortDateString()
+                    }
+                </td>
+                <td>
+                    @if (item.Guestreservationascs.Any())
+                    {
+                        var reservation = item.Guestreservationascs.First().Reservation;
+                       
+                        @reservation.CheckOut.ToShortDateString()
+                    }
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
