@@ -16,3 +16,64 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.fullscreen-vid {
+  margin-top: -30px;
+  height: 645px;
+}
+
+.quick_checkin {
+  margin-top: 200px;
+}
+
+
+
+
+ .display-1 {
+  font-size: 20px; 
+  color: white;
+  font-style: italic;
+}
+
+.display-2 {
+  font-size: 35px; 
+  color: white;
+}
+
+.quote {
+  font-size: 20px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.addy {
+  text-align: left; 
+  margin-bottom: 5px;
+  height: 30px; 
+  color: white;
+}
+
+.accomodation_sec {
+  padding-top: 50px;
+  padding-left: 555px;
+  
+}
+
+
+.main_title {
+  font-size: 30px; 
+  
+}
+
+/* .title_sec {
+  background-color: rgba(0, 0, 0, 0.5);
+} */
+
+/* .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background-color: rgba(0, 0, 0, 0.2); /* Adjust the alpha value (last parameter) to change transparency */
+  
