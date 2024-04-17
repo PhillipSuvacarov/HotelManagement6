@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color: black !important;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color: black !important; ">
             
             <div class="container">
                 
@@ -38,7 +38,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/guest_info/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Guests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Reservations/Index">Reservations</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Reservations/Index"><span style ="color:white;" onmouseover="this.style.color='grey';" onmouseout="this.style.color='white';">Reservations</a>
                         </li>
 
                         <li class="nav-item">
@@ -67,17 +67,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container2">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - LuxeDePalace | Ysani & Phillip - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+   
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -15,29 +15,59 @@
     var nextDay = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
 
 }
+<head>
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
 
 
-<div class="left-center">
-    <h1 class="display-1" style = "font-size: 20px; padding-left: 145px" >Luxe de Palace </h1>
-    <h1 class="display-2" style = "font-size: 35px; padding-left: 85px">YSANI & PHILLIP </h1>
-    <hr style="border-top: 1 px solid black; width: 425px">
-    <p style = "text-align: left; padding-left: 45px; height: 30px">123 Oceanfront Avenue, Maui, Hawaii 77777</p>
-    <h1 class="display-3" style = "font-size: 25px; padding-left: 40px; color: white; background-color: black; width: 425px">CHECK RATES & AVAILABILITY</h1>
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 150px; width: 425px; background-color: rgb(228, 227, 227)">
-        <form method="post" style="display: flex; flex-direction: column; align-items: center;">
-            <label for="checkin_date">CHECK IN - CHECK OUT</label>
-            <div style="display: flex; justify-content: center;">
+<div class="fullscreen-vid" style="position: relative; overflow: hidden;">
+    <video id="background-video" autoplay muted loop>
+        <source src="~/video/hotelvid.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <button id="pause-button" style="position: absolute; bottom: 10px; right: 10px; border: none; background: none;">
+        <img id = "pause-icon" src="~/images/pause.png" alt="Pause" style="width: 40px; height: 40px;">
+        <img id = "play-icon" src="~/images/playy.png" alt="Play" style="width: 40px; height: 40px; display: none;">
+    </button>
+
+</div>
+
+
+<div class="quick_checkin"  style="position: absolute; top: 250px; left: 50px; z-index: 1;">
+    <div class ="title_sec">
+        <h1 class="display-1">Ysani & Phillip </h1>
+        <h1 class="display-2">LUXE DE PALACE</h1>
+
+        <div class = "quote" style="display: flex; align-items: center;">
+            <p style="color: white;">Experience Luxury Beyond Imagination</p>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <p style="color: white; text-decoration: underline;">423-504-4763</p>
+        </div>
+    </div>
+    
+    <button id="toggle-section" style="background-color: black; color: white; border: none; padding: 10px 20px; margin-top: 20px;">Check Rates & Availability</button>
+
+    <div id="availability-section" style="display: none;">
+        <div style="display: flex; align-items: center; background-color: black; padding: 20px;">
+            <div style="margin-right: 20px;">
+                <label for="checkin_date" style="color: white;">Check In:</label>
                 <input type="date" id="checkin_date" min="@today" />
+            </div>
+            <div style="margin-right: 20px;">
+                <label for="checkout_date" style="color: white;">Check Out:</label>
                 <input type="date" id="checkout_date" min="@nextDay" />
             </div>
-            <label for="guests">Number of Guests</label>
-            <div style="display: flex; justify-content: center;">
+            <div>
+                <label for="guests" style="color: white;">Guests:</label>
                 <input type="number" id="guests" value="1" min="1" max="6" style="width: 50px; text-align: center;" />
                 <button type="button" onclick="incrementGuests()">+</button>
                 <button type="button" onclick="decrementGuests()">-</button>
             </div>
-            <button type="submit">Search Available Rooms</button>
-        </form>
+            <button type="submit" style="margin-left: 20px;">Search Available Rooms</button>
+        </div>
     </div>
 
     <script>
@@ -54,12 +84,47 @@
                 guestsInput.value = parseInt(guestsInput.value) - 1;
             }
         }
+
+        document.getElementById('toggle-section').addEventListener('click', function() {
+            var section = document.getElementById('availability-section');
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+        // Get references to the video element and the pause button
+        var video = document.getElementById("background-video");
+        var pauseButton = document.getElementById("pause-button");
+        var pauseIcon = document.getElementById("pause-icon");
+        var playIcon = document.getElementById("play-icon");
+        
+
+        // Add event listener to the pause button
+        pauseButton.addEventListener("click", function() {
+            // If the video is paused, play it; otherwise, pause it
+            if (video.paused) {
+                video.play();
+                pauseIcon.style.display = "inline";
+                playIcon.style.display = "none";
+                
+            } else {
+                video.pause();
+                pauseIcon.style.display = "none";
+                playIcon.style.display = "inline";
+                   
+            }
+        });
     </script>
 
+</div>
 
-
+    <div class= "accomodation_sec">
+        <h1 class="main_title">ACCOMODATIONS</h1>
 
 </div>
+
+
 @if(User.IsInRole("Admin"))
 
 {
