@@ -208,7 +208,7 @@ namespace HotelManagement6.Models
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.Guestreservationascs)
                     .HasForeignKey(d => d.GuestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Table_7_Guest");
 
                 entity.HasOne(d => d.Reservation)
@@ -246,7 +246,7 @@ namespace HotelManagement6.Models
                 entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.Reservationpayments)
                     .HasForeignKey(d => d.ReservationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("ReservationPayments_Reservation");
             });
 
@@ -265,7 +265,7 @@ namespace HotelManagement6.Models
                 entity.HasOne(d => d.RoomType)
                     .WithMany(p => p.Rooms)
                     .HasForeignKey(d => d.RoomTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Room_RoomType");
 
                 entity.HasMany(d => d.Reservations)

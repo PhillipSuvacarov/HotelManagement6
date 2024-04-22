@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelManagement6.Pages.reservation_payment
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly HotelManagement6.Models.HmContext _context;
@@ -25,7 +27,11 @@ namespace HotelManagement6.Pages.reservation_payment
             if (_context.Reservationpayments != null)
             {
                 Reservationpayment = await _context.Reservationpayments
-                .Include(r => r.Reservation).ToListAsync();
+                 .Include(r => r.Reservation)
+        .ThenInclude(gra => gra.Guestreservationascs)
+        .ThenInclude(g => g.Guest)
+    .Include(r => r.Reservation.Rooms) 
+    .ToListAsync();
             }
         }
     }

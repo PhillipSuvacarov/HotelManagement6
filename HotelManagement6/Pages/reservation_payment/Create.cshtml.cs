@@ -17,7 +17,12 @@ namespace HotelManagement6.Pages.reservation_payment
         {
             _context = context;
         }
-
+        private bool IsValidPaymentDetails(string paymentDetails)
+        {
+            // Define your desired regex pattern
+            var regex = new System.Text.RegularExpressions.Regex(@"^\(\d{4}-\d{4}-\d{4}\) \(\d{2}/\d{2}\) \(\d{3}\)$");
+            return regex.IsMatch(paymentDetails);
+        }
         public IActionResult OnGet(decimal? price)
         {
             if (TempData.ContainsKey("ReservationId"))
@@ -50,7 +55,11 @@ namespace HotelManagement6.Pages.reservation_payment
                 return Page();
             }
 
-
+            //if (!IsValidPaymentDetails(Reservationpayment.PaymentDetails))
+            //{
+            //    ModelState.AddModelError("Reservationpayment.PaymentDetails", "Payment details must be in the format (1234-4567-8901) (mm/dd) (CVC)");
+            //    return Page();
+            //}
             _context.Reservationpayments.Add(Reservationpayment);
             await _context.SaveChangesAsync();
             if (User.IsInRole("Admin")) 
@@ -62,7 +71,9 @@ namespace HotelManagement6.Pages.reservation_payment
             {
                 return RedirectToPage("/Privacy");
             }
+
                     
         }
+        
     }
 }

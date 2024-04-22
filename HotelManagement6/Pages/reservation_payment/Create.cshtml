@@ -16,9 +16,9 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Reservationpayment.ReservationId" class="control-label"></label>
-                <select asp-for="Reservationpayment.ReservationId" class ="form-control" asp-items="ViewBag.ReservationId"></select>
-                <span asp-validation-for="Reservationpayment.ReservationId" class="text-danger"></span>
+                <label asp-for="Reservationpayment.ReservationId" class="control-label" hidden></label>
+                <select asp-for="Reservationpayment.ReservationId" class ="form-control" asp-items="ViewBag.ReservationId" hidden></select>
+                <span asp-validation-for="Reservationpayment.ReservationId" class="text-danger" hidden></span>
             
             </div>
 
@@ -34,8 +34,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Reservationpayment.PaymentDetails" class="control-label"></label>
-                <input asp-for="Reservationpayment.PaymentDetails" class="form-control" />
-                <span asp-validation-for="Reservationpayment.PaymentDetails" class="text-danger" placeholder =""></span>
+                <input asp-for="Reservationpayment.PaymentDetails" class="form-control" placeholder="(1234-4567-8901) (mm/dd) (CVC)" />
+                <span asp-validation-for="Reservationpayment.PaymentDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

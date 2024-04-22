@@ -1,0 +1,46 @@
+﻿@page
+@model HotelManagement6.Pages.Reservations.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Reservations</h1>
+
+
+<table class="table table-hover table-bordered table-responsive">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation[0].CheckIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation[0].CheckOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation[0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Reservation) {
+        <tr>
+            <td>
+                    @item.CheckIn.ToShortDateString()
+            </td>
+            <td>
+                    @item.CheckOut.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ReservationId" class="btn btn-primary btn-sm">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ReservationId" class="btn btn-info btn-sm">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ReservationId" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

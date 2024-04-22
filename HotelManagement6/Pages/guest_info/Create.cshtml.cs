@@ -62,8 +62,8 @@ public class CreateModel : PageModel
 
             //creates reservation instance to pull checkin and checkout dates
             Reservation r = new Reservation();
-            r.CheckIn = DateOnly.FromDateTime(checkinDate);
-            r.CheckOut = DateOnly.FromDateTime(checkoutDate);
+            r.CheckIn = (checkinDate);
+            r.CheckOut = (checkoutDate);
 
             // this gets the contents from room
             var room = _context.Rooms.Where(x => x.RoomNumber == roomNumber).FirstOrDefault();

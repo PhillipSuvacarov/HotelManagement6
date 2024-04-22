@@ -23,6 +23,7 @@ namespace HotelManagement6.Pages.guest_info
         public IList<Guest> Guest { get;set; } = default!;
         public IList<Reservation> Reservations { get; set; } = default!;
         public IList<Guestreservationasc> GuestReservations { get; set; } = default!;
+        public bool IsPaid { get; set; }
         public async Task OnGetAsync()
         {
             if (!User.IsInRole("Admin"))
@@ -36,9 +37,12 @@ namespace HotelManagement6.Pages.guest_info
 
                 Guest = await _context.Guests
                 .Include(g => g.Guestreservationascs)
-                .ThenInclude(gra => gra.Reservation)
-                    .ThenInclude(r => r.Rooms)
-            .ToListAsync();
+        .ThenInclude(gr => gr.Reservation) 
+        .ThenInclude(r => r.Rooms)
+        .Include(gr => gr.Guestreservationascs)
+        .ThenInclude(gr => gr.Reservation) 
+        .ThenInclude(r => r.Reservationpayments)
+        .ToListAsync();
 
 
 

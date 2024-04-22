@@ -6,7 +6,7 @@ namespace HotelManagement6.Models
     public partial class Reservationpayment
     {
         public int ReservationId { get; set; }
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string PaymentDetails { get; set; } = null!;
         

@@ -48,31 +48,50 @@ namespace HotelManagement6.Pages.guest_info
             {
                 return NotFound();
             }
-            // remove from guestreservationasc
-            
-            var reservations = _context.Guestreservationascs.Where(x => x.GuestId == id);
-            
-            _context.Guestreservationascs.RemoveRange(reservations);
-            
 
-            //var roomReservations = _context.Roomreservationints.Where(x => x.R);
-            //_context.RoomReservationInts.RemoveRange(roomReservations);
 
+            
 
             // remove reservation from reservation table finding the id
+            var reservations = _context.Guestreservationascs.Where(x => x.GuestId == id);
+
+            _context.Guestreservationascs.RemoveRange(reservations);
+
+           
+
+            // removed elements from reservationpayments
+
+            var reservationpayment = _context.Reservationpayments.Where(x => x.ReservationId == id);
+
+            _context.Reservationpayments.RemoveRange(reservationpayment);
+
+           
+
+            // remove elements from reservation table
+
             var reservationsID = _context.Reservations.Where(x => x.ReservationId == id);
+
             _context.Reservations.RemoveRange(reservationsID);
-            _context.SaveChanges();
+
+           
 
 
             var guest = await _context.Guests.Where(x => x.Id == id).FirstOrDefaultAsync();
+
             if (guest != null)
+
             {
+
                 _context.Guests.Remove(guest);
-                _context.SaveChanges();
+
             }
 
+            _context.SaveChanges();
+
             return RedirectToPage("./Index");
+
         }
+
     }
+
 }
