@@ -29,7 +29,7 @@ namespace HotelManagement6.Pages.Reservations
                 return NotFound();
             }
 
-            var reservation =  await _context.Reservations.FirstOrDefaultAsync(m => m.Id == id);
+            var reservation =  await _context.Reservations.FirstOrDefaultAsync(m => m.ReservationId == id);
             if (reservation == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace HotelManagement6.Pages.Reservations
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReservationExists(Reservation.Id))
+                if (!ReservationExists(Reservation.ReservationId))
                 {
                     return NotFound();
                 }
@@ -70,7 +70,7 @@ namespace HotelManagement6.Pages.Reservations
 
         private bool ReservationExists(int id)
         {
-          return (_context.Reservations?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Reservations?.Any(e => e.ReservationId == id)).GetValueOrDefault();
         }
     }
 }

@@ -12,9 +12,9 @@ namespace HotelManagement6.Models
             Rooms = new HashSet<Room>();
         }
 
-        public int Id { get; set; }
-        public DateOnly CheckIn { get; set; }
-        public DateOnly CheckOut { get; set; }
+        public int ReservationId { get; set; }
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
         public decimal Price { get; set; }
 
         public virtual ICollection<Guestreservationasc> Guestreservationascs { get; set; }

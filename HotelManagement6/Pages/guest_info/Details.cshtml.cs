@@ -26,8 +26,12 @@ namespace HotelManagement6.Pages.guest_info
             {
                 return NotFound();
             }
-
-            var guest = await _context.Guests.FirstOrDefaultAsync(m => m.Id == id);
+            var guest = await _context.Guests
+       .Include(g => g.Guestreservationascs)
+           .ThenInclude(gra => gra.Reservation)
+               .ThenInclude(r => r.Rooms)
+       .FirstOrDefaultAsync(m => m.Id == id);
+           // var guest = await _context.Guests.FirstOrDefaultAsync(m => m.Id == id);
             if (guest == null)
             {
                 return NotFound();

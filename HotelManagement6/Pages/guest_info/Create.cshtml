@@ -24,7 +24,7 @@
             
             <div class="form-group">
                 <label asp-for="Guest.FirstName" class="control-label"></label>
-                <input asp-for="Guest.FirstName" class="form-control" type="" />
+                <input asp-for="Guest.FirstName" class="form-control" type=""  />
                 <span asp-validation-for="Guest.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Guest.Phone" class="control-label"></label>
-                <input asp-for="Guest.Phone" class="form-control" />
+                <input asp-for="Guest.Phone" class="form-control" placeholder="123-456-7890" />
                 <span asp-validation-for="Guest.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Guest.DateOfBirth" class="control-label"></label>
-                <input asp-for="Guest.DateOfBirth" class="form-control" type ="date"/>
+                <input asp-for="Guest.DateOfBirth" class="form-control" type="datetime" placeholder="mm/dd/yyyy"/>
                 <span asp-validation-for="Guest.DateOfBirth" class="text-danger"></span>
             </div>
 
@@ -60,17 +60,22 @@
                 <input type="hidden" name="price" value="@price"/>
             </div>
             <div class="form-group">
-                <input type="submit" value="Reserve" class="btn btn-primary" />
+                <input type="submit" value="Next" class="btn btn-primary" asp-route-price ="@price"/>
             </div>
         </form>
     </div>
+    @if (User.IsInRole("Admin"))
+    {
 
-    <a asp-page="Index">Back to List</a>
+        <a asp-page="Index">Back to List</a>
+    }
+    else
+    {
+        <a asp-page="/Index">Home</a>
+    }
+    
 </div>
-@roomNumber<br />
-@checkinDate<br />
-@checkoutDate<br />
-@price<Br \ />
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

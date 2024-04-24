@@ -16,7 +16,7 @@ namespace HotelManagement6.Models
         public string? GovId { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }
-        public DateOnly? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         
         public virtual ICollection<Guestreservationasc> Guestreservationascs { get; set; }

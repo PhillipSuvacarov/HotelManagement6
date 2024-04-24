@@ -17,13 +17,13 @@
    
 }
 
-<h1>Index</h1>
+<h1>Guest</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class=" table table-hover table-bordered table-responsive">
+    <thead class="bg-primary text-white">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Guest[0].FirstName)
@@ -46,6 +46,19 @@
             <th>
                 RoomNumber
             </th>      
+            <th>
+                Check-in
+            </th>
+            <th>
+                Check-out
+            </th>
+            <th>
+                Has Paid
+            </th>
+            
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -67,7 +80,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    @item.DateOfBirth?.ToShortDateString() 
             </td>
 
             <td>
@@ -80,10 +93,37 @@
                         }
                     }
             </td>
+                <td>
+                    @if (item.Guestreservationascs.Any())
+                    {
+                        var reservation = item.Guestreservationascs.First().Reservation;
+                        @reservation.CheckIn.ToShortDateString()
+                    }
+                </td>
+                <td>
+                    @if (item.Guestreservationascs.Any())
+                    {
+                        var reservation = item.Guestreservationascs.First().Reservation;
+                       
+                        @reservation.CheckOut.ToShortDateString()
+                    }
+                </td>
+                <td>
+                    @if (item.Guestreservationascs.Any())
+
+                    {
+
+                        var reservation = item.Guestreservationascs.First().Reservation;
+
+                        @(reservation.Reservationpayments.Any() ? "✓" : "❌")
+
+                    }
+
+                </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm" >Edit</a> 
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a> 
+                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>
 }

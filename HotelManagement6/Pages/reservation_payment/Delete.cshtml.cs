@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement6.Models;
 
-namespace HotelManagement6.Pages.Users
+namespace HotelManagement6.Pages.reservation_payment
 {
     public class DeleteModel : PageModel
     {
@@ -19,40 +19,40 @@ namespace HotelManagement6.Pages.Users
         }
 
         [BindProperty]
-      public Aspnetuser Aspnetuser { get; set; } = default!;
+      public Reservationpayment Reservationpayment { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Aspnetusers == null)
+            if (id == null || _context.Reservationpayments == null)
             {
                 return NotFound();
             }
 
-            var aspnetuser = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Id == id);
+            var reservationpayment = await _context.Reservationpayments.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (aspnetuser == null)
+            if (reservationpayment == null)
             {
                 return NotFound();
             }
             else 
             {
-                Aspnetuser = aspnetuser;
+                Reservationpayment = reservationpayment;
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Aspnetusers == null)
+            if (id == null || _context.Reservationpayments == null)
             {
                 return NotFound();
             }
-            var aspnetuser = await _context.Aspnetusers.FindAsync(id);
+            var reservationpayment = await _context.Reservationpayments.FindAsync(id);
 
-            if (aspnetuser != null)
+            if (reservationpayment != null)
             {
-                Aspnetuser = aspnetuser;
-                _context.Aspnetusers.Remove(Aspnetuser);
+                Reservationpayment = reservationpayment;
+                _context.Reservationpayments.Remove(Reservationpayment);
                 await _context.SaveChangesAsync();
             }
 

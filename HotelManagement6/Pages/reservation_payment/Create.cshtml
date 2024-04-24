@@ -1,0 +1,53 @@
+﻿@page
+@model HotelManagement6.Pages.reservation_payment.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    var reservationId = HttpContext.Request.Query["ReservationId"];
+    DateTime today = DateTime.Today;
+    var price = HttpContext.Request.Query["prices"];
+}
+<h1>Create</h1>
+
+<h4>Reservationpayment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Reservationpayment.ReservationId" class="control-label" hidden></label>
+                <select asp-for="Reservationpayment.ReservationId" class ="form-control" asp-items="ViewBag.ReservationId" hidden></select>
+                <span asp-validation-for="Reservationpayment.ReservationId" class="text-danger" hidden></span>
+            
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Reservationpayment.Date" class="control-label"></label>
+                <input asp-for="Reservationpayment.Date" class="form-control" readonly type="datetime" value = "@today"/>
+                <span asp-validation-for="Reservationpayment.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservationpayment.Amount" class="control-label"></label>
+                <input asp-for="Reservationpayment.Amount" class="form-control"  readonly value="@price" />
+                <span asp-validation-for="Reservationpayment.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservationpayment.PaymentDetails" class="control-label"></label>
+                <input asp-for="Reservationpayment.PaymentDetails" class="form-control" placeholder="(1234-4567-8901) (mm/dd) (CVC)" />
+                <span asp-validation-for="Reservationpayment.PaymentDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    // you are not able to edit this page it has something to do with the dates and foregin keys 
 }
 
 <h1>Edit</h1>
@@ -44,16 +45,33 @@
                 <input asp-for="Guest.DateOfBirth" class="form-control" />
                 <span asp-validation-for="Guest.DateOfBirth" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="Room.RoomNumber" class="control-label"></label>
+                <input asp-for="Room.RoomNumber" class="form-control" />
+                <span asp-validation-for="Room.RoomNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Reservation.CheckIn" class="control-label"></label>
+                <input asp-for="Reservation.CheckIn" class="form-control" />
+                <span asp-validation-for="Reservation.CheckIn" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Reservation.CheckOut" class="control-label"></label>
+                <input asp-for="Reservation.CheckOut" class="form-control" />
+                <span asp-validation-for="Reservation.CheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

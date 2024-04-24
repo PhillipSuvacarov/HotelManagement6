@@ -1,0 +1,90 @@
+﻿@page
+
+@model HotelManagement6.Pages.reservation_payment.IndexModel
+
+@{
+
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>ReservationPayments</h1>
+<table class="table table-hover table-bordered table-responsive">
+    <thead class = "bg-primary text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservationpayment[0].Date)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservationpayment[0].Amount)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservationpayment[0].PaymentDetails)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservationpayment[0].Reservation)
+
+            </th>
+            <th>
+                First Name
+
+            </th>
+            <th>
+                Last Name
+
+            </th>
+            <th>
+                Room Number
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Reservationpayment)
+        {
+
+            <tr>
+                <td>
+                    @item.Date.ToShortDateString()
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDetails)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reservation.ReservationId)
+
+                </td>
+                <td>
+                    @string.Join(", ", item.Reservation.Guestreservationascs.Select(gra => gra.Guest.FirstName))
+
+                </td>
+                <td>
+                    @string.Join(", ", item.Reservation.Guestreservationascs.Select(gra => gra.Guest.LastName))
+
+                </td>
+                <td>
+                    @string.Join(", ", item.Reservation.Rooms.Select(r => r.RoomNumber))
+                </td>
+                
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+
+                
+            </tr>
+        }
+
+    </tbody>
+</table>
